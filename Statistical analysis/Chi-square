@@ -1,0 +1,27 @@
+###############################################################################
+## create subset
+subtib1 <- SAS_DATASET_LARGE %>%
+  drop_na(NEW_TRANSPORT_TO_HOSPITAL,Blood_pressure) %>%
+  select(NEW_TRANSPORT_TO_HOSPITAL,Blood_pressure)
+
+## create frequency table
+subtib1 %>%
+  tbl_cross(row = Blood_pressure, 
+            col = NEW_TRANSPORT_TO_HOSPITAL, 
+            percent = "row") %>%
+  bold_labels()
+
+## perform Chi-square test
+subtib1 %>%
+  table() %>%
+  chisq.test()
+
+##############################################################################
+## post-hoc test
+
+#install.packages("chisq.posthoc.test")
+#library(chisq.posthoc.test)
+
+season = table(SAS_DATASET_LARGE$Blood_pressure, SAS_DATASET_LARGE$NEW_TRANSPORT_TO_HOSPITAL)
+
+chisq.posthoc.test(season, method="bonferroni")
