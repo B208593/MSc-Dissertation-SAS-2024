@@ -1,0 +1,71 @@
+# Load the packages
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(BSDA)
+library(janitor)
+library(descriptr)
+library(epitools)
+library(finalfit)
+library(RColorBrewer)
+library(reportROC)
+library(knitr)
+library(broom)
+library(ggplot2)
+library(gtsummary)
+library(magrittr)
+
+# load data
+
+#CREATE SUBSETS OF DATA
+ACS_FINAL = subset(ACS_ALL, 
+                 select = -c(As,
+                             socSymptoms_NauseaVomiting,
+                             Management_ThromboCheck_Elevation,
+                             Management_ThromboCheck_Unconciousness,
+                             Management_ThromboCheck_BleedingDisorder,
+                             Management_ThromboCheck_PreviousSGIBleed,
+                             Management_ThromboCheck_RecentTrauma,
+                             Management_ThromboCheck_TIA6m,
+                             Management_ThromboCheck_SystDiastCheck,
+                             Management_ThromboCheck_PatientWeigh,
+                             Management_ThromboCheck_AdmissionArrangedWith))
+
+unique(ACS_ALL$Management_ThromboCheck_BleedingDisorder)
+
+# RECODE values to YES & NO creating a new column
+
+ACS_FINAL <- ACS_FINAL %>%
+  mutate(Symptoms_CentralChestPain_N = recode(Symptoms_CentralChestPain, "0" ="No", "1" ="Yes"),
+         Symptoms_Back_N = recode(Symptoms_Back,"0" ="No", "1" ="Yes"),
+         Symptoms_Arm_N = recode(Symptoms_Arm,"0" ="No", "1" ="Yes"),
+         Symptoms_Neck_N = recode(Symptoms_Neck,"0" ="No", "1" ="Yes"),
+         Symptoms_Jaw_N = recode(Symptoms_Jaw,"0" ="No", "1" ="Yes"),
+         Symptoms_Shoulder_N = recode(Symptoms_Shoulder,"0" ="No", "1" ="Yes"),
+         Symptoms_UpperAbdomen_N = recode(Symptoms_UpperAbdomen,"0" ="No", "1" ="Yes"),
+         Symptoms_None_N = recode(Symptoms_None,"0" ="No", "1" ="Yes"),
+         AssocSymptoms_Sweating_N = recode(AssocSymptoms_Sweating,"0" ="No", "1" ="Yes"),
+         AssocSymptoms_Pallor_N = recode(AssocSymptoms_Pallor,"0" ="No", "1" ="Yes"),
+         AssocSymptoms_Breathlessness_N = recode(AssocSymptoms_Breathlessness,"0" ="No", "1" ="Yes"),
+         AssocSymptoms_ClammySkin_N = recode(AssocSymptoms_ClammySkin,"0" ="No", "1" ="Yes"))
+
+#unique(ACS_FINAL$Symptoms_CentralChestPain)
+#typeof(ACS_FINAL$Symptoms_CentralChestPain)
+
+
+########## III. MODIFY Management_ThromboCheck_ECGtoCCU
+
+
+#RENAME VARIABLES
+ACS_FINAL <- ACS_FINAL %>%
+  mutate(Management_ThromboCheck_ECGtoCCU_N = 
+           recode(Management_ThromboCheck_ECGtoCCU, 
+                  "ST Elevation of 1mm or greater in adjacent limb leads" = 'ST 1MM', 
+                  "ST Elevation of 2mm or greater in adjacent precordial leads" = 'ST 2MM', 
+                  "Presumed new LBBB" =  'LBBB'))
+
+
+### RENAME Management_ThromboCheck_ThrombolysysTime TO Management_ThromboCheck_HOSPITAL
+ACS_FINAL <- ACS_FINAL %>%
+  rename(Management_ThromboCheck_HOSPITAL = Management_ThromboCheck_ThrombolysysTime)
