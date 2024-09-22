@@ -1,12 +1,4 @@
-### pain category
-NEW_CODES = NEW_CODES %>%
-  select(AGE_CATEGORY, MEANING) %>%
-  count(AGE_CATEGORY, MEANING)%>%
-  filter(n>90)
-
-#!is.na(MEANING)
-
-
+## REORDER LEVELS OF FACTORS
 #SAS_DATASET_LARGE2$C3_Call_Colour_new = factor(SAS_DATASET_LARGE2$C3_Call_Colour_new,
 #                                              levels=c("No Colour",
 #                                                       "Green", 
@@ -24,10 +16,11 @@ NEW_CODES$AGE_CATEGORY = factor(NEW_CODES$AGE_CATEGORY,
                                                      ">69"))
 
 
-
+## CREATE CATEGORIES FOR COLOURS 
 NEW_CODES$group<-cut(NEW_CODES$n,
                               breaks = c(0,150,500,1000,5000,15000))
 
+## TILE PLOT
 ggplot(NEW_CODES, aes(x = MEANING, y = AGE_CATEGORY, fill = group)) +
   geom_tile(color = "darkblue") + # Create heatmap
   scale_fill_manual(breaks = levels(NEW_CODES$group),
