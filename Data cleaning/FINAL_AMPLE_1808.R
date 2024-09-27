@@ -18,9 +18,6 @@ library(magrittr)
 library(naniar)
 library(writexl)
 
-AMPLE_ALL <- read_csv("C:/Users/SST24004/OneDrive - NHS Scotland/Documents/MSc Project/2_Data/1_BINDED_FILES\\AMPLE_ALL.csv", guess_max=100000)
-AMPLE_FINAL <- read_csv("AMPLE_FINAL_0607.csv", guess_max=100000)
-
 
 # RENAME PMH_Oth TO SuicideAttempts_HowMany/DIABETES
 ## NEW NAME = OLD NAME
