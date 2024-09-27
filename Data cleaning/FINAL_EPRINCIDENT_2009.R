@@ -21,7 +21,6 @@ library(stringr)
 
 
 ## LOAD FILE
-EPRINCIDENT_ALL <- read_csv("C:/Users/SST24004/OneDrive - NHS Scotland/Documents/MSc Project/2_Data/1_BINDED_FILES\\EPRINCIDENT_ALL.csv", guess_max=100000)
 despatch_codes <- read_csv("despatch_codes.csv", guess_max=100000)
 MPDS_CODES <- read_csv("MPDS_CODES_1609.csv", guess_max=100000)
 
