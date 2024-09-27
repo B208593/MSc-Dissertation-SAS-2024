@@ -17,9 +17,6 @@ library(gtsummary)
 library(magrittr)
 library(naniar)
 
-SOCRATES_ALL <- read_csv("C:/Users/SST24004/OneDrive - NHS Scotland/Documents/MSc Project/2_Data/1_BINDED_FILES\\SOCRATES_ALL.csv", guess_max=100000)
-
-unique(SOCRATES_ALL$Onset_Datetime)
 
 # count duplicates
 sum(table(SOCRATES_ALL$INCIDENTID)-1)
