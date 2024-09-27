@@ -16,9 +16,6 @@ library(ggplot2)
 library(gtsummary)
 library(magrittr)
 
-# CHECKING HOW R STUDIO READS CSV FILE
-AIRWAY_ALL <- read_csv("C:/Users/SST24004/OneDrive - NHS Scotland/Documents/MSc Project/2_Data/1_BINDED_FILES\\AIRWAY_ALL.csv", guess_max=100000)
-
 
 ################ CREATE SUBSET
 ## exclude columns contaiing no data
